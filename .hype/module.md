@@ -1,6 +1,6 @@
 # How to use [hype](https://github.com/gopherguides/hype) as an action to auto generate your repo's README.
 
-This repo shows how to use a github action and hype to auto generate your README.md
+This repo shows how to use a github action and hype to auto generate your README.md.
 
 ## Requirements
 
@@ -23,6 +23,6 @@ It is recommend to use a GitHub [Personnal Acces Token](https://docs.github.com/
 
 ## The Action
 
-The current action is set to only generate the readme on a pull request.  You can modify this to your own needs.
+The current action is set to only generate the readme on a pull request and commit it back to that same pull request.  You can modify this to your own needs.
 
 <code src="hype.yml"></code>
