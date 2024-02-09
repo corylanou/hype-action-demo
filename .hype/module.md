@@ -7,7 +7,9 @@ This repo shows how to use a github action and hype to auto generate your README
 For this action to work
 
 - You need to give permission to your GitHub Actions to create a pull request in your GitHub repo settings *(Settings -> Actions -> General)*.   
-    - Under `Workflow Permissions` check `Allow GitHub Actions to create and approve pull requests`.
+    - Under `Workflow Permissions`
+        - check `Allow GitHub Actions to create and approve pull requests`.
+        -  Check `Read and write permissions` 
 
 OR
 
