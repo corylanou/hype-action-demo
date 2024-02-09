@@ -14,7 +14,12 @@ For this action to work
 
 
 
-* Under `Workflow Permissions` check `Allow GitHub Actions to create and approve pull requests`.
+* Under `Workflow Permissions`
+
+
+* check `Allow GitHub Actions to create and approve pull requests`.
+* Check `Read and write permissions`
+
 
 
 
@@ -38,10 +43,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+        ref: ${{ github.event.pull_request.head.ref }}
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: "1.22.x"
+        cache-dependency-path: subdir/go.sum
 
     - name: Install hype
       run: go install github.com/gopherguides/hype/cmd/hype@latest
@@ -51,10 +60,11 @@ jobs:
 
     - name: Commit README back to the repo
       run: |-
-        git config --global user.email "hype@gopherguides.com"
-        git config --global user.name "hype"
-        git diff --quiet || (git add README.md && git commit -m "Updated README")
-        git push
+        git rev-parse --abbrev-ref HEAD
+        git config user.name 'GitHub Actions'
+        git config user.email 'actions@github.com'
+        git diff --quiet || (git add README.md && git commit -am "Updated README")
+        git push origin ${{github.event.pull_request.head.ref}}
 
 ```
 
