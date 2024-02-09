@@ -1,0 +1,26 @@
+name: Generate README with Hype
+on: [push]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: "1.22.x"
+
+    - name: Install hype
+      run: go install github.com/gopherguides/hype/cmd/hype@latest
+
+    - name: Run hype
+      run: pushd .hype;hype export -format=markdown -f module.md > ../README.md;popd
+
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+      # Optional. Commit message for the created commit.
+      # Defaults to "Apply automatic changes"
+      commit_message: README.md recompiled with hype
+
